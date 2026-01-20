@@ -1,4 +1,4 @@
-name: Python Testing
+name: Python testing
 
 # Trigger the workflow on any push to the main branch or pull request
 on:
@@ -17,9 +17,8 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
 
-      - name: Build and run tests in Docker
-        uses: docker://python:3.8-slim
-        with:
-          args: > 
-            /bin/sh -c "pip install -r requirements.txt && pytest"
+      - name: Build Docker image
+        run: docker build -t my-app:latest .
 
+      - name: Run tests in Docker
+        run: docker run my-app:latest
